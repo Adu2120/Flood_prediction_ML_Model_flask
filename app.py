@@ -5,6 +5,10 @@ import model
 
 app = Flask(__name__)
 
+@app.route('/predict', methods=['GET'])
+def hiii():
+    return "Hello"
+
 @app.route('/predict', methods=['POST'])
 def update_record():
     record = json.loads(request.data)
