@@ -5,7 +5,7 @@ import model
 
 app = Flask(__name__)
 
-@app.route('/predict', methods=['GET'])
+@app.route('/', methods=['GET'])
 def hiii():
     return "Hello"
 
