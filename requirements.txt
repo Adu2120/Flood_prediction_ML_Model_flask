@@ -10,3 +10,4 @@ Werkzeug==2.0.3
 pandas
 numpy
 scikit-learn
+gunicorn==20.1.0
