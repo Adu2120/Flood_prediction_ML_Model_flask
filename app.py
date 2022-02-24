@@ -16,7 +16,7 @@ cors = CORS(app , resources={r"/*": {"origins": "*", "allow_headers": "*", "expo
 # app.register_blueprint(lstm_blueprint)
 # app.register_blueprint(lstm_price_blueprint)
 
-conn = psycopg2.connect(dbname="d4bi30pog6cpff", user="lktmtqhlqduqwo", password="e99d63085169e1aa483d4ea42af9d168953c669eb06feea68cff02b06f0bf310", host="ec2-23-20-73-25.compute-1.amazonaws.com")
+conn = psycopg2.connect(dbname="d7o74rl8ij8n3o", user="zelvoyofzgdudm", password="4caee932563106c232bc134a614f4d13fe49d50991c98867508dfa4be0a185c3", host="ec2-35-153-35-94.compute-1.amazonaws.com")
 
 @app.route('/', methods=['GET'])
 def hiii():
@@ -26,6 +26,15 @@ def hiii():
 def favicon(): 
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
+@app.route('/insert_station', methods=['POST'])
+def insert_station():
+    record = json.loads(request.data)
+    cur = conn.cursor()
+    i = "INSERT INTO public.station_details(name, latitude, longitude, district, taluka, waterflow, waterlevel, predicted_wf, predicted_wl, alert) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"    
+    data = (record['name'],record['latitude'],record['longitude'],record['district'],record['taluka'],record['waterflow'],record['waterlevel'],record['predicted_wf'],record['predicted_wl'],record['alert'])
+    cur.execute(i, data)
+    conn.commit()
+    return jsonify({})
 
 @app.route('/predict', methods=['POST'])
 def update_record():    
@@ -37,7 +46,7 @@ def update_record():
     up = "UPDATE station_details SET predicted_wf = %s, predicted_wl = %s where id = %s;"
     
     #inserting data of Nitawade
-    data = (record['nitawade_wf'], record['nitawade_wl'], 6)
+    data = (record['nitawade_wf'], record['nitawade_wl'], 1)
     cur.execute(s, data)
     cur.execute(ur, data)
     cur.execute(up, data)
@@ -46,7 +55,7 @@ def update_record():
     #Updating WF and WL Data of Nitawade
 
     #inserting data of Balinge
-    data = (record['balinge_wf'], record['balinge_wl'], 7)
+    data = (record['balinge_wf'], record['balinge_wl'], 2)
     cur.execute(s, data)
     cur.execute(ur, data)
     cur.execute(up, data)
@@ -59,19 +68,19 @@ def update_record():
     s = "INSERT INTO public.predicted_data(waterflow, waterlevel, station_id) VALUES (%s, %s, %s);"
     
     #inserting data of Shingnapur
-    data = (output['shingnapur_wf'], output['shingnapur_wl'], 8)
+    data = (output['shingnapur_wf'], output['shingnapur_wl'], 3)
     cur.execute(s, data)
     cur.execute(up, data)
     conn.commit()
     
     #inserting data of Ichalkaranji
-    data = (output['ichalkaranji_wf'], output['ichalkaranji_wl'], 10)
+    data = (output['ichalkaranji_wf'], output['ichalkaranji_wl'], 5)
     cur.execute(s, data)
     cur.execute(up, data)
     conn.commit()
 
     #inserting data of rajaram_bandhara
-    data = (output['rajaram_bandhara_wf'], output['rajaram_bandhara_wl'], 9)
+    data = (output['rajaram_bandhara_wf'], output['rajaram_bandhara_wl'], 4)
     cur.execute(s, data)
     cur.execute(up, data)
     conn.commit()
