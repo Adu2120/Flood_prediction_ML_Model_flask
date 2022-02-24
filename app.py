@@ -1,7 +1,7 @@
 # encoding: utf-8
 import json
 from flask import Flask, request, jsonify
-import model
+import model as model 
 
 app = Flask(__name__)
 
@@ -11,4 +11,4 @@ def update_record():
     output = model.predict_wf_wl(record['nitawade_wl'], record['nitawade_wf'], record['balinge_wl'], record['balinge_wf'])
     return jsonify(output)
 
-app.run(debug=True)
+app.run()
