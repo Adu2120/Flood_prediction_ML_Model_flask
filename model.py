@@ -37,12 +37,12 @@ def predict_wf_wl(a, b, c, d):
     x_test3=[[a,b,c,d,y_test1[0][0],y_test1[0][1],y_test2[0][0],y_test2[0][1]]]
     y_test3=model3.predict(x_test3)
     output = {
-        "shingnapur_wl": y_test1[0][0],
-        "shingnapur_wf": y_test1[0][1],
-        "rajaram_bandhara_wl": y_test2[0][0],
-        "rajaram_bandhara_wf": y_test2[0][1],
-        "ichalkaranji_wl": y_test3[0][0],
-        "ichalkaranji_wf": y_test3[0][1]
+        "shingnapur_wl": "{:.2f}".format(y_test1[0][0]),
+        "shingnapur_wf": "{:.2f}".format(y_test1[0][1]),
+        "rajaram_bandhara_wl": "{:.2f}".format(y_test2[0][0]),
+        "rajaram_bandhara_wf": "{:.2f}".format(y_test2[0][1]),
+        "ichalkaranji_wl": "{:.2f}".format(y_test3[0][0]),
+        "ichalkaranji_wf": "{:.2f}".format(y_test3[0][1])
     }
 
     return output
