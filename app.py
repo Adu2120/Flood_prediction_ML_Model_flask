@@ -20,4 +20,4 @@ def update_record():
     output = model.predict_wf_wl(record['nitawade_wl'], record['nitawade_wf'], record['balinge_wl'], record['balinge_wf'])
     return jsonify(output)
 
-app.run()
+# app.run()
