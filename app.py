@@ -48,7 +48,9 @@ def update_record():
     #inserting data of Nitawade
     data = (record['nitawade_wf'], record['nitawade_wl'], 1)
     cur.execute(s, data)
+    conn.commit()
     cur.execute(ur, data)
+    conn.commit()
     cur.execute(up, data)
     conn.commit()
 
@@ -57,7 +59,9 @@ def update_record():
     #inserting data of Balinge
     data = (record['balinge_wf'], record['balinge_wl'], 2)
     cur.execute(s, data)
+    conn.commit()
     cur.execute(ur, data)
+    conn.commit()
     cur.execute(up, data)
     conn.commit()
 
@@ -70,18 +74,21 @@ def update_record():
     #inserting data of Shingnapur
     data = (output['shingnapur_wf'], output['shingnapur_wl'], 3)
     cur.execute(s, data)
+    conn.commit()
     cur.execute(up, data)
     conn.commit()
     
     #inserting data of Ichalkaranji
     data = (output['ichalkaranji_wf'], output['ichalkaranji_wl'], 5)
     cur.execute(s, data)
+    conn.commit()
     cur.execute(up, data)
     conn.commit()
 
     #inserting data of rajaram_bandhara
     data = (output['rajaram_bandhara_wf'], output['rajaram_bandhara_wl'], 4)
     cur.execute(s, data)
+    conn.commit()
     cur.execute(up, data)
     conn.commit()
     return jsonify(output)
