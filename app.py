@@ -91,22 +91,25 @@ def station_details():
     cur = conn.cursor()
     s = "select * from station_details;"
     cur.execute(s)
-    output = cur.fetchall()
-    output = {
-        "id": output[0],
-        "name": output[1],
-        "latitude": output[2],
-        "longitude": output[3],
-        "district": output[4],
-        "taluka": output[5],
-        "waterflow": output[6],
-        "waterlevel": output[7],
-        "predicted_wf": output[8],
-        "predicted_wl": output[9],
-        "alert": output[10],
-        "user_id": output[11],
-        "time_stamp": output[12],
-    }
+    output1 = cur.fetchall()
+    output=[]
+    for i in output1:
+        output2 = {
+            "id": i[0],
+            "name": i[1],
+            "latitude": i[2],
+            "longitude": i[3],
+            "district": i[4],
+            "taluka": i[5],
+            "waterflow": i[6],
+            "waterlevel": i[7],
+            "predicted_wf": i[8],
+            "predicted_wl": i[9],
+            "alert": i[10],
+            "user_id": i[11],
+            "time_stamp": i[12],
+        }
+        output.append(output2)
     conn.commit()
     return jsonify(output)
 
