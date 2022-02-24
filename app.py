@@ -96,7 +96,7 @@ def update_record():
 @app.route('/station_details', methods=['GET'])
 def station_details():
     cur = conn.cursor()
-    s = "select * from station_details;"
+    s = "select * from station_details order by id asc;"
     cur.execute(s)
     output1 = cur.fetchall()
     output=[]
