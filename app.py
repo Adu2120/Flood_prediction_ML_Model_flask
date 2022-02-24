@@ -123,7 +123,7 @@ def station_details():
 @app.route('/stored_data', methods=['GET'])
 def stored_data():
     cur = conn.cursor()
-    s = "SELECT name, stored_data.water_flow, stored_data.water_level, time_stamp from stored_data INNER JOIN station_details as sd ON stored_data.station_id = sd.id;"
+    s = "SELECT name, stored_data.water_flow, stored_data.water_level, stored_data.time_stamp from stored_data INNER JOIN station_details as sd ON stored_data.station_id = sd.id;"
     cur.execute(s)
     output = cur.fetchall()
     conn.commit()
@@ -132,7 +132,7 @@ def stored_data():
 @app.route('/predicted_data', methods=['GET'])
 def predicted_data():
     cur = conn.cursor()
-    s = "SELECT name, predicted_data.waterflow, predicted_data.waterlevel, time_stamp from predicted_data INNER JOIN station_details as sd ON predicted_data.station_id = sd.id;"
+    s = "SELECT name, predicted_data.waterflow, predicted_data.waterlevel, predicted_data.time_stamp from predicted_data INNER JOIN station_details as sd ON predicted_data.station_id = sd.id;"
     cur.execute(s)
     output = cur.fetchall()
     conn.commit()
