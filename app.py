@@ -92,6 +92,21 @@ def station_details():
     s = "select * from station_details;"
     cur.execute(s)
     output = cur.fetchall()
+    output = {
+        "id": output[0],
+        "name": output[1],
+        "latitude": output[2],
+        "longitude": output[3],
+        "district": output[4],
+        "taluka": output[5],
+        "waterflow": output[6],
+        "waterlevel": output[7],
+        "predicted_wf": output[8],
+        "predicted_wl": output[9],
+        "alert": output[10],
+        "user_id": output[11],
+        "time_stamp": output[12],
+    }
     conn.commit()
     return jsonify(output)
 
