@@ -96,4 +96,4 @@ def predicted_data():
     conn.commit()
     return jsonify(output)
 
-app.run(debug=True)
+# app.run(debug=True)
