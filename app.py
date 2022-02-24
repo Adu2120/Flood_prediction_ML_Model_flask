@@ -7,8 +7,14 @@ import model as model
 import psycopg2
 import psycopg2.extras
 import os
+from flask_cors import CORS, cross_origin
+# from lstm_price_route import lstm_price_blueprint
+# from lstm_route import lstm_blueprint
 
 app = Flask(__name__)
+cors = CORS(app , resources={r"/*": {"origins": "*", "allow_headers": "*", "expose_headers": "*"}})
+# app.register_blueprint(lstm_blueprint)
+# app.register_blueprint(lstm_price_blueprint)
 
 conn = psycopg2.connect(dbname="d4bi30pog6cpff", user="lktmtqhlqduqwo", password="e99d63085169e1aa483d4ea42af9d168953c669eb06feea68cff02b06f0bf310", host="ec2-23-20-73-25.compute-1.amazonaws.com")
 
@@ -34,6 +40,7 @@ def update_record():
     data = (record['nitawade_wf'], record['nitawade_wl'], 6)
     cur.execute(s, data)
     cur.execute(ur, data)
+    cur.execute(up, data)
     conn.commit()
 
     #Updating WF and WL Data of Nitawade
@@ -42,6 +49,7 @@ def update_record():
     data = (record['balinge_wf'], record['balinge_wl'], 7)
     cur.execute(s, data)
     cur.execute(ur, data)
+    cur.execute(up, data)
     conn.commit()
 
     record = json.loads(request.data)
