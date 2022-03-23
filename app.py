@@ -33,8 +33,11 @@ def insert_iot():
     stationid = request.args.get('stationid')
     cur = conn.cursor()
     s = "INSERT INTO public.stored_data(water_flow, water_level, station_id) VALUES (%s, %s, %s);"
+    ur = "UPDATE station_details SET waterflow = %s, waterlevel = %s, time_stamp=now() where id = %s;"
     data = (water_flow, water_level, stationid)
     cur.execute(s, data)
+    conn.commit()
+    cur.execute(ur, data)
     conn.commit()
     return "<h1>"+ water_flow + " " + water_level + " " + stationid + "</h1>"
     
