@@ -20,7 +20,11 @@ conn = psycopg2.connect(dbname="d7o74rl8ij8n3o", user="zelvoyofzgdudm", password
 
 @app.route('/', methods=['GET'])
 def hiii():
-    return "Hello"
+    cur = conn.cursor()
+    s="SET TIME ZONE 'Asia/Kolkata';"
+    cur.execute(s)
+    # output1 = cur.fetchall()
+    return "output1"
 
 @app.route('/favicon.ico', methods=['GET']) 
 def favicon(): 
@@ -139,7 +143,7 @@ def station_details():
 @app.route('/stored_data', methods=['GET'])
 def stored_data():
     cur = conn.cursor()
-    s = "SELECT name, stored_data.water_flow, stored_data.water_level, stored_data.time_stamp from stored_data INNER JOIN station_details as sd ON stored_data.station_id = sd.id;"
+    s = "SELECT name, stored_data.water_flow, stored_data.water_level, stored_data.time_stamp AT TIME ZONE 'Asia/Kolkata' from stored_data INNER JOIN station_details as sd ON stored_data.station_id = sd.id;"
     cur.execute(s)
     output = cur.fetchall()
     conn.commit()
