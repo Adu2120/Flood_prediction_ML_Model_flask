@@ -26,6 +26,19 @@ def hiii():
 def favicon(): 
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
+@app.route('/insert_from_iot', methods=['GET'])
+def insert_iot():
+    water_flow = request.args.get('waterflow')
+    water_level = request.args.get('waterlevel')
+    stationid = request.args.get('stationid')
+    cur = conn.cursor()
+    s = "INSERT INTO public.stored_data(water_flow, water_level, station_id) VALUES (%s, %s, %s);"
+    data = (water_flow, water_level, stationid)
+    cur.execute(s, data)
+    conn.commit()
+    return "<h1>"+ water_flow + " " + water_level + " " + stationid + "</h1>"
+    
+
 @app.route('/insert_station', methods=['POST'])
 def insert_station():
     record = json.loads(request.data)
