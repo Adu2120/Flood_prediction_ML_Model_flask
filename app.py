@@ -38,7 +38,7 @@ def insert_iot():
     cur = conn.cursor()
     s = "INSERT INTO public.stored_data(water_flow, water_level, station_id) VALUES (%s, %s, %s);"
     ur = "UPDATE station_details SET waterflow = %s, waterlevel = %s, time_stamp=now() where id = %s;"
-    data = (water_flow, water_level, stationid)
+    data = (water_level, water_flow, stationid)
     cur.execute(s, data)
     conn.commit()
     cur.execute(ur, data)
@@ -144,6 +144,24 @@ def station_details():
 def stored_data():
     cur = conn.cursor()
     s = "SELECT name, stored_data.water_flow, stored_data.water_level, stored_data.time_stamp AT TIME ZONE 'Asia/Kolkata' from stored_data INNER JOIN station_details as sd ON stored_data.station_id = sd.id;"
+    cur.execute(s)
+    output = cur.fetchall()
+    conn.commit()
+    return jsonify(output)
+
+@app.route('/iot_waterflow', methods=['GET'])
+def iot_waterflow():
+    cur = conn.cursor()
+    s = "SELECT time_stamp AT TIME ZONE 'Asia/Kolkata', water_flow from stored_data where station_id = 3 order by time_stamp desc limit 10;"
+    cur.execute(s)
+    output = cur.fetchall()
+    conn.commit()
+    return jsonify(output)
+
+@app.route('/iot_waterlevel', methods=['GET'])
+def iot_waterlevel():
+    cur = conn.cursor()
+    s = "SELECT time_stamp AT TIME ZONE 'Asia/Kolkata', water_level from stored_data where station_id = 3 order by time_stamp desc limit 10;"
     cur.execute(s)
     output = cur.fetchall()
     conn.commit()
